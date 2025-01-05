@@ -1,0 +1,25 @@
+<!-- templates/spotify_app/base.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Spotify App{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <nav class="bg-green-600 p-4 text-white">
+        <div class="container mx-auto">
+            <a href="{% url 'search' %}" class="text-xl font-bold">Spotify App</a>
+            {% if user.is_authenticated %}
+                <span class="float-right">
+                    Welcome, {{ user.username }}
+                    <a href="{% url 'logout' %}" class="ml-4 text-sm">Logout</a>
+                </span>
+            {% endif %}
+        </div>
+    </nav>
+
+    <main class="container mx-auto mt-8 px-4">
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

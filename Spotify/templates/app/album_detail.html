@@ -1,0 +1,31 @@
+<!-- templates/spotify_app/album_detail.html -->
+{% extends 'spotify_app/base.html' %}
+
+{% block content %}
+<div class="bg-white rounded-lg shadow-lg p-6">
+    {% if album.images %}
+        <img src="{{ album.images.0.url }}"
+             alt="{{ album.name }}"
+             class="w-64 h-64 object-cover mb-6">
+    {% endif %}
+
+    <h1 class="text-3xl font-bold mb-4">{{ album.name }}</h1>
+    <p class="text-gray-600 mb-6">{{ album.artists.0.name }}</p>
+
+    <h2 class="text-xl font-bold mb-4">Tracks</h2>
+    <div class="space-y-4">
+        {% for track in album.tracks.items %}
+            <div class="flex items-center justify-between p-4 bg-gray-50 rounded">
+                <div>
+                    <h3 class="font-semibold">{{ track.name }}</h3>
+                    <p class="text-gray-600 text-sm">{{ track.duration_ms|divide:1000|time:"m:s" }}</p>
+                </div>
+                <button onclick="addToPlaylist('{{ track.uri }}')"
+                        class="bg-green-600 text-white px-4 py-2 rounded text-sm hover:bg-green-700">
+                    Add to Playlist
+                </button>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
